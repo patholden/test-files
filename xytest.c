@@ -1,3 +1,16 @@
+/*************************************************************
+ *                                                           *
+ * Assembly Guidance Systems X86_64 test                     *
+ * Copyright 2015.
+ *                                                           *
+ * Test Name:  xytest                                        *
+ * Command  :  "xytest"                                      *
+ * Input    :    NONE.                                       *
+ * Description:  This test writes alternation 1's & 0's      *
+ *               patterns to X/Y IO registers.  First        *
+ *               pattern is 0xAAAA, second is 0x5555.        *
+ *                                                           *
+ ************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

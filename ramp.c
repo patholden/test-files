@@ -1,3 +1,16 @@
+/*************************************************************
+ *                                                           *
+ * Assembly Guidance Systems X86_64 test                     *
+ * Copyright 2015.                                           *
+ *                                                           *
+ * Test Name:  ramp                                          *
+ * Command  :  "ramp"                                        *
+ * Input    :    NONE.                                       *
+ * Description:  This test writes multiple sinusoidal        *
+ *               patterns to X/Y IO registers.  4 patterns   *
+ *               are looped 100 times through.               *
+ *                                                           *
+ ************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>

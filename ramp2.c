@@ -1,3 +1,16 @@
+/*************************************************************
+ *                                                           *
+ * Assembly Guidance Systems X86_64 test                     *
+ * Copyright 2015.                                           *
+ *                                                           *
+ * Test Name:  ramp2                                         *
+ * Command  :  "ramp2"                                       *
+ * Input    :    NONE.                                       *
+ * Description:  This test writes a single 4000-point        *
+ *               sinusoidal to X/Y IO registers.  This       *
+ *               pattern is looped 100 times through.        *
+ *                                                           *
+ ************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -38,7 +51,7 @@ main( int argc, char ** argv )
        ampl  = sign * 2000.0 * sin( phase );
        hi = ( 0xFF00 & (int)ampl ) >> 8;
        lo = ( 0x00FF & (int)ampl );
-       // printf( "%10.4lf %10.4lf  %2x %2x\n", phase, ampl, hi, lo );
+       printf( "%10.4lf %10.4lf  %2x %2x\n", phase, ampl, hi, lo );
        outb( 0x00, LG_IO_Y0 );
        outb( 0x00, LG_IO_Y1 );
        outb( lo  , LG_IO_Y2 );

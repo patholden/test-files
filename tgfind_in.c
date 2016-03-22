@@ -15,11 +15,13 @@ main( int argc, char ** argv )
    unsigned char rl_val, rh_val;
 
    if (ioperm(LG_BASE, 32, 1)) {perror("ioperm"); exit(EXIT_FAILURE);}
-       
-   rl_val = inb( TFPORTRL );
-   rh_val = inb( TFPORTRH );
 
-   printf( " IO Addr %x = %2x, %x = %2x\n",TFPORTRL, rl_val &0xFF, TFPORTRH, rh_val &0xFF);
+   while (1)
+     {
+       rl_val = ~(inb( TFPORTRL ));
+       rh_val = ~(inb( TFPORTRH ));
+       printf( " IO Addr %x = %2x, %x = %2x\n",TFPORTRL, rl_val &0xFF, TFPORTRH, rh_val &0xFF);
+       sleep(10);
+     }
    exit(EXIT_SUCCESS);
-
 }

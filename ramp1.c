@@ -38,29 +38,22 @@ main( int argc, char ** argv )
    pi = 4.0 * atan2( 1.0, 1.0 );
    if (ioperm(LG_BASE, 32, 1)) {perror("ioperm"); exit(EXIT_FAILURE);}
 
-   for ( j = 0; j < 4000; j +=  step ) {
-     usleep( 10 );
-     hi = ( j & 0xFF00 ) >> 8;
-     lo = ( j & 0x00FF );
-     jr = (double)j;
-     phase = jr  * ( (2.0 * pi) / 2000.0 ) ; 
-     ampl  = (32767 * sin( phase ) + 32768);   // 0x8000 shifts to positive wave
-     hi = ( 0xFF00 & (int)ampl ) >> 8;
-     lo = ( 0x00FF & (int)ampl );
-     printf( "%10.4lf %10.4lf  %2x %2x\n", phase, ampl, hi, lo );
-     outb( 0x00, LG_IO_Y0 );
-     outb( 0x00, LG_IO_Y1 );
-     outb( lo  , LG_IO_Y2 );
-     outb( hi  , LG_IO_Y3 );
-     hi = ( j & 0xFF00 ) >> 8;
-     lo = ( j & 0x00FF );
-     outb( 0x00, LG_IO_X0 );
-     outb( 0x00, LG_IO_X1 );
-     outb( lo  , LG_IO_X2 );
-     outb( hi  , LG_IO_X3 );
-     outb( 0xC0, LG_IO_X0 );
-     outb( 0x40, LG_IO_X0 );
-     outb( 0xC0, LG_IO_X0 );
+   for ( j = 0; j < 4000; j +=  step )
+     {
+       jr = (double)j;
+       phase = jr  * ( (2.0 * pi) / 2000.0 ) ; 
+       ampl  = (16383 * sin( phase ) + 0x2000);   // 0x4000 shifts to positive wave
+       hi = ( 0xFF00 & (int)ampl ) >> 8;
+       lo = ( 0x00FF & (int)ampl );
+       outb( 0x80, LG_IO_X0 );
+       outb( lo , LG_IO_X2 );
+       outb( hi , LG_IO_X3 );
+       outb( lo , LG_IO_Y2 );
+       outb( hi , LG_IO_Y3 );
+       printf( "%10.4lf %10.4lf  %2x %2x\n", phase, ampl, hi, lo);
+       outb( 0x00, LG_IO_X0 );
+       outb( 0x80, LG_IO_X0 );
+       usleep(1);
      }
    exit(EXIT_SUCCESS);
 }
