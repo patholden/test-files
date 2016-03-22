@@ -4,7 +4,7 @@
 #define SAMPLERATE 22000 // Set samples per second
 #define FREQUENCY 30	 // Set Frequency of wave
 
-inline short convert_level_to_signed_16_bit(short sample)
+static inline short convert_level_to_signed_16_bit(short sample)
 {
   float amplitude = 1.0;    // 0 to 1.0, one being the highest amplitude, set to max DAC amplitude (-10 to +10v).
   double angle;

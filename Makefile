@@ -9,15 +9,11 @@ AS=$(TOOLDIR)-as
 AR=$(TOOLDIR)/x86_64-buildroot-linux-uclibc-ar
 LDFLAGS=-Wl,--sysroot=$(STAGING_DIR) -Wl,--error-poison-system-directories -L$(STAGING_DIR)/lib -L$(STAGING_DIR)/usr/lib -lc -lm
 CFLAGS = -g -march=atom
-TEST_EXEC = ramp ramp1 ramp2 ramp9 tgfind_in step xy xytest xy_io ttyloop1 ttyloop2 sinusoid1 lg_drv_test lg_drv_sine readio writeio tgfind2
+TEST_EXEC = ramp ramp1 ramp2 ramp9 tgfind_in step xy xytest xy_io ttyloop1 ttyloop2 sinusoid1 lg_drv_test lg_drv_sine readio writeio tgfind_in tgfind2
 TEST_OBJS = ramp.o ramp2.o ramp9.o tgfind_in.o step.o xy.o xytest.o xy_io.o ttyloop1.o ttyloop2.o sinusoid.o sinusoid1.o lg_drv_test.o lg_drv_sine.o readio writeio tgfind2.o
 
 default:  $(TEST_EXEC)
 all:  $(TEST_EXEC)
-tgfind2.o: tgfind2.c
-	$(CC) -c $(CFLAGS) $(INCLUDES) tgfind2.c
-tgfind2: tgfind2.o
-	$(CC) $(LDFLAGS) -o tgfind2 tgfind2.o $(LDFLAGS)
 readio.o: readio.c
 	$(CC) -c $(CFLAGS) $(INCLUDES) readio.c
 readio: readio.o
@@ -78,6 +74,10 @@ xytest: xytest.o
 	$(CC) $(LDFLAGS) -o xytest xytest.o $(LDFLAGS)
 xytest.o: xytest.c
 	$(CC) -c $(CFLAGS) $(INCLUDES) xytest.c
+tgfind2.o: tgfind2.c
+	$(CC) -c $(CFLAGS) $(INCLUDES) tgfind2.c
+tgfind2: tgfind2.o
+	$(CC) $(LDFLAGS) -o tgfind2 tgfind2.o $(LDFLAGS)
 tgfind_in: tgfind_in.o
 	$(CC) $(LDFLAGS) -o tgfind_in tgfind_in.o $(LDFLAGS)
 tgfind_in.o: tgfind_in.c
