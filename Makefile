@@ -1,6 +1,6 @@
 BUILDROOTDIR = $(HOME)/buildroot
 TEST_DIR = $(BUILDROOTDIR)/board/agslaser/rootfs_overlay/debug
-INCLUDES = -I /usr/include/x86_64-linux-gnu -I /usr/include -I $(HOME)/buildroot -I $(HOME)/ags/ags-source/linux_headers/include
+INCLUDES = -I /usr/include/x86_64-linux-gnu -I /usr/include -I $(HOME)/buildroot -I ../linux_headers/include
 CC=x86_64-linux-gnu-gcc
 LDFLAGS = -static
 LIBS = -lm

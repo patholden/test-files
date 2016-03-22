@@ -12,14 +12,18 @@
  *               returned to user on success or failure.     *
  *                                                           *
  ************************************************************/
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <syslog.h>
 #include <unistd.h>
+#include <stddef.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <termios.h>
-#include <errno.h>
 #include <sys/io.h>
-#include <linux/laserguide.h>
+#include <linux/laser_api.h>
 #include <string.h>
 
 #define TEST_BUFF_LEN   128
