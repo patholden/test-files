@@ -1,12 +1,15 @@
 BUILDROOTDIR = $(HOME)/buildroot
 TEST_DIR = $(BUILDROOTDIR)/board/agslaser/rootfs_overlay/debug
-INCLUDES = -I /usr/include/x86_64-linux-gnu -I /usr/include -I $(HOME)/buildroot -I ../linux_headers/include
-CC=x86_64-linux-gnu-gcc
+INCLUDES = -I /usr/include -I $(HOME)/buildroot -I ../linux_headers/include
+CC=$(TOOLDIR)-gcc
+LD=$(TOOLDIR)-ld
+AS=$(TOOLDIR)-as
+AR=$(TOOLDIR)/x86_64-buildroot-linux-uclibc-ar
 LDFLAGS = -static
 LIBS = -lm
 CFLAGS = -g -march=atom
-TEST_EXEC = ramp ramp1 ramp2 ramp9 tgfind_in step xy xytest xy_io ttyloop1 ttyloop2 xycenter sinusoid1 lg_drv_test lg_drv_sine readio writeio tgfind2
-TEST_OBJS = ramp.o ramp2.o ramp9.o tgfind_in.o step.o xy.o xytest.o xy_io.o ttyloop1.o ttyloop2.o xycenter.o sinusoid1.o lg_drv_test.o lg_drv_sine.o readio writeio tgfind2.o
+TEST_EXEC = ramp ramp1 ramp2 ramp9 tgfind_in step xy xytest xy_io ttyloop1 ttyloop2 sinusoid1 lg_drv_test lg_drv_sine readio writeio tgfind2
+TEST_OBJS = ramp.o ramp2.o ramp9.o tgfind_in.o step.o xy.o xytest.o xy_io.o ttyloop1.o ttyloop2.o sinusoid.o sinusoid1.o lg_drv_test.o lg_drv_sine.o readio writeio tgfind2.o
 
 default:  $(TEST_EXEC)
 all:  $(TEST_EXEC)
