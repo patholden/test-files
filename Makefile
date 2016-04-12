@@ -9,8 +9,8 @@ AS=$(TOOLDIR)-as
 AR=$(TOOLDIR)/x86_64-buildroot-linux-uclibc-ar
 LDFLAGS=-Wl,--sysroot=$(STAGING_DIR) -Wl,--error-poison-system-directories -L$(STAGING_DIR)/lib -L$(STAGING_DIR)/usr/lib -lc -lm
 CFLAGS = -g -march=atom
-TEST_EXEC = ramp ramp1 ramp2 ramp9 tgfind_in step xy xytest xy_io ttyloop1 ttyloop2 sinusoid1 lg_drv_test lg_drv_sine readio writeio tgfind_in tgfind2
-TEST_OBJS = ramp.o ramp2.o ramp9.o tgfind_in.o step.o xy.o xytest.o xy_io.o ttyloop1.o ttyloop2.o sinusoid.o sinusoid1.o lg_drv_test.o lg_drv_sine.o readio writeio tgfind2.o
+TEST_EXEC = ramp ramp1 ramp2 ramp9 tgfind_in step xy xytest xy_io ttyloop1 ttyloop2 sinusoid1 lg_drv_test lg_drv_sine readio writeio tgfind2 tgfind_timing
+TEST_OBJS = ramp.o ramp2.o ramp9.o tgfind_in.o step.o xy.o xytest.o xy_io.o ttyloop1.o ttyloop2.o sinusoid.o sinusoid1.o lg_drv_test.o lg_drv_sine.o readio writeio tgfind2.o tgfind_timing.o
 
 default:  $(TEST_EXEC)
 all:  $(TEST_EXEC)
@@ -78,14 +78,18 @@ tgfind2.o: tgfind2.c
 	$(CC) -c $(CFLAGS) $(INCLUDES) tgfind2.c
 tgfind2: tgfind2.o
 	$(CC) $(LDFLAGS) -o tgfind2 tgfind2.o $(LDFLAGS)
+tgfind_in.o: tgfind_in.c
+	$(CC) -c $(CFLAGS) $(INCLUDES) tgfind_in.c
 tgfind_in: tgfind_in.o
 	$(CC) $(LDFLAGS) -o tgfind_in tgfind_in.o $(LDFLAGS)
-tgfind_in.o: tgfind_in.c
-	$(CC) -c $(CFLAGS) -I$(INCLUDES) tgfind_in.c
-xycenter: xycenter.o
-	$(CC) $(LDFLAGS) -o xycenter xycenter.o $(LDFLAGS)
+tgfind_timing.o: tgfind_timing.c
+	$(CC) -c $(CFLAGS) $(INCLUDES) tgfind_timing.c
+tgfind_timing: tgfind_timing.o
+	$(CC) $(LDFLAGS) -o tgfind_timing tgfind_timing.o $(LDFLAGS)
 xycenter.o: xycenter.c
 	$(CC) -c $(CFLAGS) -I$(INCLUDES) xycenter.c
+xycenter: xycenter.o
+	$(CC) $(LDFLAGS) -o xycenter xycenter.o $(LDFLAGS)
 clean:
 	rm *.o $(TEST_EXEC)
 install:

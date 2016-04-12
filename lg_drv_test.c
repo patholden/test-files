@@ -66,8 +66,8 @@ main( int argc, char ** argv )
   sleep(1);
   
   // ioctl write-command-data test
-  cmd_data.base.cmd = CMDW_SETQCCOUNTER;
-  cmd_data.base.length = sizeof(uint32_t);
+  cmd_data.base.hdr.cmd = CMDW_SETQCCOUNTER;
+  cmd_data.base.hdr.length = sizeof(uint32_t);
   cmd_data.base.dat32.val32 = -1;
   rc = write(laser_fd, (char *)&cmd_data, sizeof(struct cmd_rw_base));
   if (rc < 0)
@@ -85,9 +85,9 @@ main( int argc, char ** argv )
       pXYData->ydata = dacvolts;
       pXYData->ctrl_flags = BEAMONISSET | LASERENBISSET | BRIGHTBEAMISSET;
     }
-  cmd_data.base.cmd = CMDW_BUFFER;
-  cmd_data.base.test_mode = 1;
-  cmd_data.base.length = sizeof(struct lg_xydata) * SAMPLERATE;
+  cmd_data.base.hdr.cmd = CMDW_BUFFER;
+  cmd_data.base.hdr.test_mode = 1;
+  cmd_data.base.hdr.length = sizeof(struct lg_xydata) * SAMPLERATE;
   rc = write(laser_fd, (char *)&cmd_data, sizeof(struct cmd_rw));
   if (rc < 0)
     fprintf(stderr,"\nWRITE-CMD: SINE err %d, errno %d\n", rc, errno);
