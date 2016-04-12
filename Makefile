@@ -87,7 +87,7 @@ tgfind_timing.o: tgfind_timing.c
 tgfind_timing: tgfind_timing.o
 	$(CC) $(LDFLAGS) -o tgfind_timing tgfind_timing.o $(LDFLAGS)
 xycenter.o: xycenter.c
-$(CC) -c $(CFLAGS) -I$(INCLUDES) xycenter.c
+	$(CC) -c $(CFLAGS) -I$(INCLUDES) xycenter.c
 xycenter: xycenter.o
 	$(CC) $(LDFLAGS) -o xycenter xycenter.o $(LDFLAGS)
 clean:

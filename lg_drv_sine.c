@@ -120,7 +120,7 @@ int main( int argc, char ** argv )
     cmd_buff->base.hdr.length = plen;
     write(fd_laser, cmd_buff, sizeof(struct cmd_rw));
     lg_display.poll_freq = KETIMER_50U;
-    lg_display.disp_end  = plen;
+    lg_display.nPoints  = plen/sizeof(struct lg_xydata);
     doDevDisplay(fd_laser, &lg_display);
     closelog();
     exit(EXIT_SUCCESS);
