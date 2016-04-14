@@ -33,15 +33,17 @@ char   *test_buff_out;
 
 int main( int argc, char ** argv )
 {
-  struct  termios term;
   size_t  test_len=0;
   fd_set  rdset, wrset;
   int     fd_serial;
   int     n, baud;
   int     count=0, index;
   char    cdata_in=0,cdata_out=0;
+  int 	  pos=0;
+  char    cursor[4]={'/','-','\\','|'};
+
   
-  fd_serial = open("/dev/lgttyS2", O_RDWR | O_NONBLOCK | O_NOCTTY);
+  fd_serial = open("/dev/lgttyS2", O_RDWR | O_NONBLOCK);
   if (fd_serial <= 0)
     {
       perror( "Unable to open /dev/lgttyS2" );
@@ -60,25 +62,12 @@ int main( int argc, char ** argv )
   sprintf(test_buff_out, "Hello from lgttyS2\n");
   test_len = strlen(test_buff_out);
 
-  // Set up file-IO for serial port
-  FD_ZERO(&rdset);
-  FD_ZERO(&wrset);
-  FD_SET(fd_serial, &rdset);
-  FD_SET(fd_serial, &wrset);
-  n = select(fd_serial + 1, &rdset, &wrset, NULL, NULL);
-  if (n < 0)
-    {
-      perror("select failed");
-      close(fd_serial);
-      exit(EXIT_FAILURE);
-    }
-
   // Start loopback test
   while (1)
     {
        count++;
        n = 0;
-       fprintf(stderr, "\nLGTTYS2 Loop-start %d", count);
+       fprintf(stderr, "\nLGTTYS2 (LCB Port) Loop: %d ", count);
        for (index=0; index < test_len; index++)
 	 {
 	   cdata_out = test_buff_out[index];
@@ -107,8 +96,11 @@ int main( int argc, char ** argv )
 	     }
 	   // Advance buffer index
 	   if ((cdata_out != 0) && (cdata_in != 0))
-	     fprintf(stderr, "\n MATCH out=%x, in=%x, index %d",cdata_out, cdata_in, index);
-	 }
+	   {
+              fprintf(stderr,"%c\b", cursor[pos]);
+              pos = (pos+1) % 4;
+	   }
+	}
     }
   free(test_buff_out);
   exit(EXIT_SUCCESS);
