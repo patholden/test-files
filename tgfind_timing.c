@@ -104,7 +104,7 @@ main( int argc, char ** argv )
 	    // Strobe bit 1->0 writes data to DAC
 	    outb(0x40, LG_IO_CNTRL1);
 	    // Now read from target find ports
-	    usleep(200);
+	    //	    usleep(200);
 	    outb(0x0, LG_IO_CNTRL1);
 	  }
 	gettimeofday( &tv, &tz );
